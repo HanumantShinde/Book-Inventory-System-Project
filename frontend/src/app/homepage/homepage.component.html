@@ -1,0 +1,87 @@
+<!-- home.component.html -->
+<section class="hero-section d-flex align-items-center text-white">
+  <div class="container text-center">
+    <div class="overlay-box mx-auto p-4 rounded">
+      <h1 class="display-4 fw-bold mb-3 animate-slide-up">Welcome to Book Inventory</h1>
+      <p class="lead mb-4 animate-slide-up" style="animation-delay: 0.2s;">
+        Your all-in-one solution to organize, track, and discover books that inspire you.
+      </p>
+      <div class="d-flex justify-content-center gap-3">
+        <a routerLink="/register" class="btn btn-primary btn-lg">Get Started</a>
+        <a routerLink="/login" class="btn btn-outline-light btn-lg">Login</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="container my-5">
+  <div class="row align-items-center justify-content-center">
+    <div class="col-md-6 mb-4 mb-md-0 order-2 order-md-1">
+   <img src="assets/bookshelf.jpeg" alt="Bookshelf" class="img-fluid rounded shadow" style="max-width: 100%; height: auto; width: 600px;">
+    </div>
+    <div class="col-md-6 order-1 order-md-2 text-center text-md-start">
+      <h2 class="fw-bold mb-3 section-heading">About Book Inventory</h2>
+      <p class="section-paragraph">
+        Book Inventory is your ultimate companion for managing your book collection. Whether you're a casual reader or a dedicated bibliophile, our platform lets you catalog your books, track reading progress, and explore new titles with ease. Designed with simplicity and elegance, we help you focus on the joy of reading.
+      </p>
+      <a routerLink="/about" class="link-highlight">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<section class="bg-light py-5">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-4 section-heading">Why Choose Book Inventory?</h2>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm feature-card">
+          <img src="assets/organization.jpeg"
+     class="card-img-top" alt="Organize" />
+          <div class="card-body">
+            <h5 class="card-title feature-title">Effortless Organization</h5>
+            <p class="card-text feature-desc">Categorize your books by genre, author, or status with our intuitive tools.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm feature-card">
+          <img src="assets/discover.jpeg" alt="Discover" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title feature-title">Discover New Reads</h5>
+            <p class="card-text feature-desc">Find personalized recommendations to expand your literary horizons.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm feature-card">
+          <img src="assets/track.jpeg" alt="Track" class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title feature-title">Track Your Progress</h5>
+            <p class="card-text feature-desc">Monitor your reading journey and set goals to stay motivated.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="adventure-section d-flex align-items-center text-white py-5">
+  <div class="container text-center">
+    <h2 class="display-5 fw-bold mb-3 animate-slide-up">Embark on Your Reading Quest</h2>
+    <p class="lead mb-4 animate-slide-up" style="animation-delay: 0.2s;">
+      Dive into epic fantasies, insightful nonfiction, or gripping mysteries with Book Inventory. Your next great read is waiting.
+    </p>
+    <a routerLink="/register" class="btn btn-light btn-lg text-primary fw-bold px-4">Join the Adventure</a>
+  </div>
+</section>
+
+<footer class="bg-dark text-white py-4">
+  <div class="container text-center">
+    <p class="mb-3">Book Inventory © 2025. All rights reserved.</p>
+    <div class="d-flex justify-content-center gap-4">
+      <a routerLink="/contact" class="footer-link">Contact Us</a>
+      <a routerLink="/privacy" class="footer-link">Privacy Policy</a>
+      <a routerLink="/terms" class="footer-link">Terms of Service</a>
+    </div>
+  </div>
+</footer>

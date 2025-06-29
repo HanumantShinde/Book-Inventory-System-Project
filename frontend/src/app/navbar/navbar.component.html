@@ -1,0 +1,17 @@
+<nav class="navbar">
+  <a class="logo" routerLink="/">📚 Book Inventory System</a>
+
+  <div class="nav-links" role="navigation" aria-label="Main navigation">
+    <ng-container *ngIf="!isLoggedIn(); else loggedInTemplate">
+      <a routerLink="/" routerLinkActive="active-link">Home</a>
+      <a routerLink="/login" routerLinkActive="active-link">Login</a>
+      <a routerLink="/register" routerLinkActive="active-link">Register</a>
+      <a routerLink="/librarian" routerLinkActive="active-link">Librarian</a>
+      <a routerLink="/member" routerLinkActive="active-link">Member</a>
+    </ng-container>
+
+    <ng-template #loggedInTemplate>
+      <button class="logout-btn" (click)="logout()" aria-label="Logout">Logout</button>
+    </ng-template>
+  </div>
+</nav>

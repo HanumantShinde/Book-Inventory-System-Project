@@ -1,0 +1,149 @@
+<div class="container my-5">
+  <h2 class="text-primary fw-bold mb-4 display-6">
+    <i class="fas fa-book me-2"></i>Welcome, Member!
+  </h2>
+
+  <!-- Search & Filter Section -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-header bg-secondary text-white">
+      <h5 class="mb-0"><i class="fas fa-filter me-2"></i>Search & Filter Books</h5>
+    </div>
+    <div class="card-body">
+      <div class="row g-3">
+        <div class="col-md-4">
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-user"></i></span>
+            <input type="text" class="form-control" placeholder="Search by Author" #authorInput>
+            <button class="btn btn-primary" (click)="searchByAuthor(authorInput.value)">
+              <i class="fas fa-search me-2"></i>Search
+            </button>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-filter"></i></span>
+            <input type="text" class="form-control" placeholder="Filter by Category" #categoryInput>
+            <button class="btn btn-outline-primary" (click)="filterByCategory(categoryInput.value)">
+              <i class="fas fa-filter me-2"></i>Filter
+            </button>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-rupee-sign"></i></span>
+            <input type="number" class="form-control" placeholder="Min Price" [(ngModel)]="minPrice">
+            <input type="number" class="form-control" placeholder="Max Price" [(ngModel)]="maxPrice">
+            <button class="btn btn-outline-success" (click)="filterByPrice()">
+              <i class="fas fa-filter me-2"></i>Price Filter
+            </button>
+          </div>
+        </div>
+        <div class="col-12">
+          <button class="btn btn-success w-100" (click)="loadAllBooks()">
+            <i class="fas fa-list me-2"></i>Show All Books
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Book Table -->
+  <div class="card shadow-sm mb-4">
+    <div class="card-header bg-dark text-white">
+      <h5 class="mb-0"><i class="fas fa-book-reader me-2"></i>Available Books</h5>
+    </div>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover table-striped align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>Author</th>
+              <th>Category</th>
+              <th>Price (₹)</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let book of books; trackBy: trackByBookId">
+              <td>{{ book.id }}</td>
+              <td>{{ book.title }}</td>
+              <td>{{ book.author }}</td>
+              <td>{{ book.category }}</td>
+              <td>₹{{ book.price }}</td>
+              <td>
+               <button class="btn btn-sm btn-info me-2" (click)="openBookModal(book)">
+  <i class="fas fa-eye me-1"></i>See
+</button>
+<button class="btn btn-sm btn-success" (click)="openBuyModal(book)">
+  <i class="fas fa-shopping-cart me-1"></i>Buy
+</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="showBuyModal">
+  <ng-container *ngTemplateOutlet="buyBookTemplate"></ng-container>
+</ng-container>
+
+ <!-- Buy Book Modal -->
+<!-- BUY MODAL -->
+<ng-template #buyBookTemplate>
+  <div class="modal fade show d-block" tabindex="-1" style="background: rgba(0, 0, 0, 0.5); z-index: 1050;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" *ngIf="selectedBook">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title"><i class="fas fa-shopping-cart me-2"></i>Buy Book</h5>
+          <button type="button" class="btn-close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>Title:</strong> {{ selectedBook.title }}</p>
+          <p><strong>Available Quantity:</strong> {{ selectedBook.quantity || 'N/A' }}</p>
+
+          <input type="number" class="form-control mt-2"
+                 [(ngModel)]="purchaseQuantity"
+                 min="1"
+                 [max]="selectedBook.quantity || 1"
+                 placeholder="Enter quantity to buy">
+
+          <p class="mt-3"><strong>Total Price:</strong> &#8377;{{ (selectedBook.price || 0) * (purchaseQuantity || 0) }}</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+          <button class="btn btn-success" (click)="confirmPurchase()">Confirm Purchase</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<!-- See Book Modal (Angular-controlled like Buy) -->
+<ng-container *ngIf="showSeeModal">
+  <div class="modal fade show d-block" tabindex="-1" style="background: rgba(0, 0, 0, 0.5); z-index: 1050;">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content" *ngIf="selectedBook">
+        <div class="modal-header bg-info text-white">
+          <h5 class="modal-title">
+            <i class="fas fa-book-open me-2"></i>Book Details
+          </h5>
+          <button type="button" class="btn-close" (click)="closeSeeModal()"></button>
+        </div>
+        <div class="modal-body">
+          <p><strong>ID:</strong> {{ selectedBook.id }}</p>
+          <p><strong>Title:</strong> {{ selectedBook.title }}</p>
+          <p><strong>Author:</strong> {{ selectedBook.author }}</p>
+          <p><strong>Category:</strong> {{ selectedBook.category }}</p>
+          <p><strong>Price:</strong> ₹{{ selectedBook.price }}</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" (click)="closeSeeModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
